@@ -7,9 +7,6 @@ function drawCircle(x, y, r, color) {
 }
 
 
-
-
-
 function makeBase(obj) {
 
 	base_image = new Image();

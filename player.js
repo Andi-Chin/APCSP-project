@@ -5,6 +5,7 @@ var Player = {
 	color: '#66FF66',
 	direction: 'left',
 	movementScale: 4,
+	bullets: [],
 	//movement flag to allow smooth movement
 	mvL: false,
 	mvR: false,
@@ -17,8 +18,6 @@ var Player = {
 		var yRange = (obj.uBound < this.y + this.radius) && (this.y - this.radius < obj.dBound);
 		return xRange && yRange;
 	},
-
-
 
 	constraint: function(input, lower, upper) {
 		var result = input;
@@ -70,10 +69,8 @@ var Player = {
 	},
 
 	shoot: function() {
-		if (! this.shooting) {
-			this.bullet = new Bullet(this.x, this.y);
-			this.shooting = true;
-		}
+		this.bullets.push(new Bullet(this.x, this.y));
+
 	},
 
 	draw: function() {
@@ -84,11 +81,15 @@ var Player = {
 	nextFrame: function(scene) {
 		this.move(scene);
 		this.draw();
-		if (this.shooting) {
-			this.bullet.setPos(this);
-			this.bullet.draw();
+		if (this.bullets.length != 0) {
+			for (var i = 0; i < this.bullets.length; i ++) {
+				if (this.bullets[i].shooting === true) {
+					this.bullets[i].setPos(this);
+					this.bullets[i].draw();
+				}
+			}
 		}
-		console.log(this.shooting);
+
 	},
 
 }
