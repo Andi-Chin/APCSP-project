@@ -46,7 +46,7 @@ class Wall extends Obj {
 
 class Bullet extends Obj {
 	constructor(x, y) {
-		super(x, y, 4, 4, '#000088');
+		super(x, y, 4, 4, '#FFFFFF');
 		this.timeSinceStart = Date.now();
 		this.distanceTravelled = 0;
 		this.maxDistance = 200;
@@ -68,10 +68,8 @@ class Bullet extends Obj {
 				this.distanceTravelled = (Date.now() - this.timeSinceStart) / 10;
 				console.log('distanceTravelled: ' + this.distanceTravelled);
 				this.x = this.originalplayerX - this.distanceTravelled;
-				return true //can still travel
 			}else {
-
-				return false //cannot travel
+				player.shooting = false;
 			}	
 		}else if (this.originalplayerDirection === 'right') {
 			if (this.originalplayerX === undefined) {
@@ -81,10 +79,8 @@ class Bullet extends Obj {
 				this.distanceTravelled = (Date.now() - this.timeSinceStart) / 10;
 				console.log('distanceTravelled: ' + this.distanceTravelled);
 				this.x = this.originalplayerX + this.distanceTravelled;
-				return true //can still travel
 			}else {
-
-				return false //cannot travel
+				player.shooting = false;
 			}	
 
 		}else if (this.originalplayerDirection === 'up') {
@@ -95,10 +91,8 @@ class Bullet extends Obj {
 				this.distanceTravelled = (Date.now() - this.timeSinceStart) / 10;
 				console.log('distanceTravelled: ' + this.distanceTravelled);
 				this.y = this.originalplayerY - this.distanceTravelled;
-				return true //can still travel
 			}else {
-
-				return false //cannot travel
+				player.shooting = false;
 			}
 		}else if (this.originalplayerDirection === 'down') {
 			if (this.originalplayerY === undefined) {
@@ -108,10 +102,8 @@ class Bullet extends Obj {
 				this.distanceTravelled = (Date.now() - this.timeSinceStart) / 10;
 				console.log('distanceTravelled: ' + this.distanceTravelled);
 				this.y = this.originalplayerY + this.distanceTravelled;
-				return true //can still travel
 			}else {
-
-				return false //cannot travel
+				player.shooting = false;
 			}
 		}
 
