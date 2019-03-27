@@ -70,8 +70,10 @@ var Player = {
 	},
 
 	shoot: function() {
-		this.bullet = new Bullet(this.x, this.y);
-		this.shooting = true;
+		if (! this.shooting) {
+			this.bullet = new Bullet(this.x, this.y);
+			this.shooting = true;
+		}
 	},
 
 	draw: function() {
