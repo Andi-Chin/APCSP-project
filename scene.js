@@ -17,5 +17,5 @@ class Scene {
 }
 
 var scene1 = new Scene([]);
-scene1.addObj(new Wall(300, 300));
+
 

@@ -32,7 +32,6 @@ class Obj {
 
 	nextFrame() {
 		this.draw();
-
 	}
 }
 
@@ -44,71 +43,4 @@ class Wall extends Obj {
 
 
 
-class Bullet extends Obj {
-	constructor(x, y) {
-		super(x, y, 4, 4, '#FFFFFF');
-		this.shooting = true;
-		this.timeSinceStart = Date.now();
-		this.distanceTravelled = 0;
-		this.maxDistance = 200;
-		this.moveMentSpeed = 5; //smaller num = faster
-	}
-	setPos(player) {
 
-		if (this.originalplayerDirection === undefined) {
-			this.originalplayerDirection = player.direction;
-		}
-
-		//console.log(player.direction);
-		if (this.originalplayerDirection === 'left') {
-
-			if (this.originalplayerX === undefined) {
-				this.originalplayerX = player.x;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.distanceTravelled = (Date.now() - this.timeSinceStart) / this.moveMentSpeed;
-				this.x = this.originalplayerX - this.distanceTravelled;
-			}else {
-				this.shooting = false;
-			}	
-		}else if (this.originalplayerDirection === 'right') {
-			if (this.originalplayerX === undefined) {
-				this.originalplayerX = player.x;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.distanceTravelled = (Date.now() - this.timeSinceStart) / this.moveMentSpeed;
-				this.x = this.originalplayerX + this.distanceTravelled;
-			}else {
-				this.shooting = false;
-			}	
-
-		}else if (this.originalplayerDirection === 'up') {
-			if (this.originalplayerY === undefined) {
-				this.originalplayerY = player.y;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.distanceTravelled = (Date.now() - this.timeSinceStart) / this.moveMentSpeed;
-				this.y = this.originalplayerY - this.distanceTravelled;
-			}else {
-				this.shooting = false;
-			}
-		}else if (this.originalplayerDirection === 'down') {
-			if (this.originalplayerY === undefined) {
-				this.originalplayerY = player.y;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.distanceTravelled = (Date.now() - this.timeSinceStart) / this.moveMentSpeed;
-				this.y = this.originalplayerY + this.distanceTravelled;
-			}else {
-				this.shooting = false;
-			}
-		}
-
-
-
-	}
-	draw()  {
-		drawCircle(this.x, this.y, this.width, this.file);
-	}
-
-}

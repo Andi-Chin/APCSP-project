@@ -1,4 +1,4 @@
-console.log("Test");
+
 // Canvas setup
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -11,7 +11,8 @@ var timer = setInterval(nextFrame, 17);
 function nextFrame() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	scene1.nextFrame();
-	Player.nextFrame(scene1);
+	player1.nextFrame(scene1);
+	player2.nextFrame(scene1);
 	
 
 }
@@ -21,44 +22,70 @@ function nextFrame() {
 document.addEventListener('keydown', function(event) {
 
 	const x = event.keyCode;
+	//player1 movements:
+	if (x === 65) {
+		player1.mvL = true;
+	}else if (x === 68) {
+		player1.mvR = true;
+	}else if (x === 87) {
+		player1.mvU = true
+	}else if (x === 83) {
+		player1.mvD = true;
 
-	if (x === 37 || x === 65 || x === 76) {
-		Player.mvL = true;
-	}else if (x === 39 || x === 68 || x === 222) {
-		Player.mvR = true;
-	}else if (x === 38 || x === 87 || x === 80) {
-		Player.mvU = true;
-	}else if (x === 40 || x === 83 || x === 186) {
-		Player.mvD = true;
 	}else if (x === 32) {
-		Player.shoot();
+		player1.shoot();
 	}
-	
+	//player2 movements:
+	else if (x === 37) {
+		player2.mvL = true;
+	}else if (x === 39) {
+		player2.mvR = true;
+	}else if (x === 38) {
+		player2.mvU = true;
+
+	}else if (x === 40) {
+		player2.mvD = true;
+	}else if (x === 191) {
+		player2.shoot();
+	}
 });
 
 document.addEventListener('keyup', function(event) {
 
 	const x = event.keyCode;
 
-	if (x === 37 || x === 65 || x === 76) {
-		Player.mvL = false;
-	}else if (x === 39 || x === 68 || x === 222) {
-		Player.mvR = false;
-	}else if (x === 38 || x === 87 || x === 80) {
-		Player.mvU = false;
-	}else if (x === 40 || x === 83 || x === 186) {
-		Player.mvD = false;
-	}else {
-		moveX = 0;
-		moveY = 0;
+	//player1 movements:
+	if (x === 65) {
+		player1.mvL = false;
+	}else if (x === 68) {
+		player1.mvR = false;
+	}else if (x === 87) {
+		player1.mvU = false
+	}else if (x === 83) {
+		player1.mvD = false;
+	}
+
+	//player2 movements:
+	else if (x === 37) {
+		player2.mvL = false;
+	}else if (x === 39) {
+		player2.mvR = false;
+	}else if (x === 38) {
+		player2.mvU = false;
+
+	}else if (x === 40) {
+		player2.mvD = false;
 	}
 });
 
+
+
+
+
+
 function addWall(event) {
 	scene1.addObj(new Wall(event.clientX - 20, event.clientY - 20));
-	// console.log(`scene1.addObj(new Wall(${event.clientX - 20}, ${event.clientY - 20}))`)
 }
-
 document.addEventListener("click", addWall);
 
 
