@@ -15,7 +15,7 @@ leftArrow:left
 rightArrow:right
 upArrow:up
 downArrow:down
-?:shoot
->:placewall
-<:change gun
+'?':shoot
+'>':placewall
+'<':change gun
 
