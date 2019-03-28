@@ -19,6 +19,7 @@ function nextFrame() {
 	player2.nextFrame(scene1);
 
 	iteration += 1;
+
 	
 
 }

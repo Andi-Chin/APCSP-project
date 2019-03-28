@@ -26,6 +26,8 @@ class Player {
 		this.canShoot = true;
 		this.range = 300;
 		this.bulletSpeed = 5;
+
+		this.numWalls = 5;
 	}
 
 
@@ -137,7 +139,11 @@ class Player {
 		}else if (this.direction === 'down') {
 			newWall = new Wall(this.x - 20, this.y - 15 + 35);
 		}
-		scene.objs.push(newWall);
+		if (this.numWalls > 0) {
+			scene.objs.push(newWall);
+			this.numWalls -= 1;
+		}
+		
 	}
 
 	draw() {
@@ -145,6 +151,21 @@ class Player {
 		ctx.fillStyle = "#000000";
 		drawCircle(this.x, this.y, this.radius, this.color);
 		ctx.fillText(this.health, this.x, this.y - 10);
+		var ex;
+		var why;
+		if (this.name === 'player1') {
+			ex = 50;
+			why = 50;
+		}else if (this.name === 'player2') {
+			ex = 950;
+			why = 50;
+		}
+		ctx.fillText(this.name, ex, why - 15);
+		ctx.fillText('hp:' + this.health, ex, why);
+		ctx.fillText('walls:' + this.numWalls, ex, why + 15);
+		ctx.fillText('gun:' + this.gun, ex, why + 30);
+
+
 		ctx.fillStyle = "#FF0000";
 		ctx.font = "50px Arial";
 
@@ -202,6 +223,9 @@ class Player {
 		if (iteration % this.reloadSpeed === 0) {
 			this.canShoot = true;
 		}
+		if (iteration % 100 === 0 && this.numWalls < 10) {
+			this.numWalls += 1
+		}
 	}
 
 
@@ -210,7 +234,6 @@ class Player {
 
 var player1 = new Player('player1', 400, 400, '#66FF66');
 var player2 = new Player('player2', 100, 100, '#9944FF');
-player2.health = 99999;
 
 
 player1.enemy = player2;
