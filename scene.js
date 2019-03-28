@@ -12,6 +12,12 @@ class Scene {
 		}
 	}
 	nextFrame() {
+		for (var i = 0; i < this.objs.length; i ++) {
+			var obj = this.objs[i];
+			if (obj.health <= 0) {
+				this.objs.splice(this.objs.indexOf(obj), 1);
+			}
+		}
 		this.draw();
 	}
 }

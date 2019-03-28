@@ -5,6 +5,7 @@ class Obj {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.health = 3;
 
 		this.file = file;
 
@@ -28,6 +29,9 @@ class Obj {
 
 	draw() {
 		makeBase(this);
+		ctx.font = "20px Arial";
+		ctx.fillText(this.health, this.x + 20, this.y + 20);
+
 	}
 
 	nextFrame() {

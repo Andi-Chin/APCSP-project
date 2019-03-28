@@ -12,16 +12,13 @@ class Player {
 		this.direction = 'left'; //by default
 		this.movementScale = 4;
 		this.bullets = [];
-
 		//movement flags to allow smooth movement
 		this.mvL = false;
 		this.mvR = false;
 		this.mvU = false;
 		this.mvD = false;
-
 		//so you won't be killed by ur own bullets LOL
 		this.enemy;
-
 		//so the game can actually end
 		this.health = 5;
 	}
@@ -103,6 +100,11 @@ class Player {
 		}
 
 	}
+	bulletWallCollision(scene) {
+		for (var i = 0; i < this.bullets.length; i ++) {
+			this.bullets[i].wallCollision(scene, this);
+		}
+	}
 
 	nextFrame(scene) {
 		this.move(scene);
@@ -126,6 +128,7 @@ class Player {
 		this.shootEnemy();
 
 		this.checkHealth();
+		this.bulletWallCollision(scene);
 
 
 

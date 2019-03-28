@@ -32,7 +32,6 @@ class Bullet{
 			if (this.distanceTravelled < this.maxDistance) {
 				this.x = this.originalplayerX - this.distanceTravelled;
 			}
-
 		}else if (this.originalplayerDirection === 'right') {
 			if (this.originalplayerX === undefined) {
 				this.originalplayerX = player.x;
@@ -72,6 +71,20 @@ class Bullet{
 			player.enemy.health -= 1;
 			console.log('health: ' + player.enemy.health);
 			player.bullets.splice(player.bullets.indexOf(this), 1);
+		}
+	}
+
+	wallCollision(scene, player) {
+		for (var i = 0; i < scene.objs.length; i ++) {
+			const wall = scene.objs[i];
+			var xInRange = wall.lBound < this.x && this.x < wall.rBound;
+			var yInRange = wall.uBound < this.y && this.y < wall.dBound;
+			if (xInRange && yInRange) {
+				scene.objs[i].health -= 1;
+				player.bullets.splice(player.bullets.indexOf(this), 1);
+				console.log('hit!');
+			}
+
 		}
 	}
 

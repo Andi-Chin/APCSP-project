@@ -9,6 +9,10 @@ ctx.textAlign = 'center';
 var timer = setInterval(nextFrame, 17);
 
 function nextFrame() {
+	ctx.fillStyle = "#FF0000";
+	ctx.font = "50px Arial";
+	ctx.textAlign = 'center';
+
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	scene1.nextFrame();
 	player1.nextFrame(scene1);
@@ -16,8 +20,6 @@ function nextFrame() {
 	
 
 }
-
-
 
 document.addEventListener('keydown', function(event) {
 
@@ -31,7 +33,6 @@ document.addEventListener('keydown', function(event) {
 		player1.mvU = true
 	}else if (x === 83) {
 		player1.mvD = true;
-
 	}else if (x === 32) {
 		player1.shoot();
 	}
