@@ -1,4 +1,4 @@
-
+var iteration = 0;
 function drawCircle(x, y, r, color) {
 	ctx.beginPath();
 	ctx.arc(x, y, r, 0, Math.PI * 2);

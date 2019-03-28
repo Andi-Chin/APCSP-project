@@ -1,5 +1,5 @@
 class Bullet{
-	constructor(x, y, ind) {
+	constructor(x, y, ind, range, speed) {
 
 		this.x = x;
 		this.y = y;
@@ -13,8 +13,8 @@ class Bullet{
 
 		this.timeSinceStart = Date.now();
 		this.distanceTravelled = 0;
-		this.maxDistance = 500;
-		this.moveMentSpeed = 5; //smaller num = faster
+		this.maxDistance = range;
+		this.moveMentSpeed = speed; //smaller num = faster
 		//index of this bullet in the player's list
 		this.ind = ind;
 
@@ -69,7 +69,6 @@ class Bullet{
 
 		if (xInRange && yInRange) {
 			player.enemy.health -= 1;
-			console.log('health: ' + player.enemy.health);
 			player.bullets.splice(player.bullets.indexOf(this), 1);
 		}
 	}
@@ -82,7 +81,6 @@ class Bullet{
 			if (xInRange && yInRange) {
 				scene.objs[i].health -= 1;
 				player.bullets.splice(player.bullets.indexOf(this), 1);
-				console.log('hit!');
 			}
 
 		}

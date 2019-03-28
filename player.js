@@ -20,10 +20,12 @@ class Player {
 		//so you won't be killed by ur own bullets LOL
 		this.enemy;
 		//so the game can actually end
+		this.gun = 'pistol';
 		this.health = 5;
-
-		this.reloadFactor = 0;
+		this.reloadSpeed = 30;
 		this.canShoot = true;
+		this.range = 300;
+		this.bulletSpeed = 5;
 	}
 
 
@@ -77,10 +79,49 @@ class Player {
 		this.x = constraint(this.x, 0, canvas.width);
 		this.y = constraint(this.y, 0, canvas.height);
 	}
+	changeGun() {
+		if (this.gun === 'pistol') {
+			this.gun = 'shotgun';
+			this.reloadSpeed = 100;
+			this.range = 250;
+			this.bulletSpeed = 5;
+		}else if (this.gun === 'shotgun') {
+			this.gun = 'sniper';
+			this.reloadSpeed = 100;
+			this.range = 1000;
+			this.bulletSpeed = 3;
+		}else if (this.gun === 'sniper') {
+			this.gun = 'pistol';
+			this.reloadSpeed = 30;
+			this.range = 300;
+			this.bulletSpeed = 5;
+		}
+		console.log(this.gun);
+	}
+
 
 	shoot() {
 		if (this.canShoot) {
-			this.bullets.push(new Bullet(this.x, this.y, this.bullets.length));
+			if (this.gun === 'pistol') {
+				this.bullets.push(new Bullet(this.x, this.y, 
+								  this.bullets.length, this.range, this.bulletSpeed));
+			}else if (this.gun === 'shotgun') {
+				const rs = 30;
+				for (var load = 0; load < 4; load ++) {
+					this.bullets.push(new Bullet(this.x + rd(-rs, rs), 
+									  this.y + rd(-rs, rs), this.bullets.length, 
+									  this.range, this.bulletSpeed));
+				}				
+			}else if (this.gun === 'sniper') {
+				const rs = 5;
+				for (var load = 0; load < 10; load ++) {
+					this.bullets.push(new Bullet(this.x + rd(-rs, rs), 
+									  this.y + rd(-rs, rs), this.bullets.length, 
+									  this.range, this.bulletSpeed));
+				}
+
+			}
+
 			this.canShoot = false;
 		}
 	}
@@ -100,7 +141,12 @@ class Player {
 	}
 
 	draw() {
+		ctx.font = "13px Arial";
+		ctx.fillStyle = "#000000";
 		drawCircle(this.x, this.y, this.radius, this.color);
+		ctx.fillText(this.health, this.x, this.y - 10);
+		ctx.fillStyle = "#FF0000";
+		ctx.font = "50px Arial";
 
 	}
 
@@ -135,7 +181,11 @@ class Player {
 
 			//could have gotten popped
 			if (this.bullets.length !== 0) {
-				this.bullets[i].draw();
+				try {
+					this.bullets[i].draw();
+				}catch (err) {
+					console.log(this.bullets);
+				}
 			}
 		}
 		if (this.name === 'player1') {
@@ -149,9 +199,7 @@ class Player {
 		this.bulletWallCollision(scene);
 
 
-		this.reloadFactor += 1;
-
-		if (this.reloadFactor % 10 === 0) {
+		if (iteration % this.reloadSpeed === 0) {
 			this.canShoot = true;
 		}
 	}
@@ -162,6 +210,7 @@ class Player {
 
 var player1 = new Player('player1', 400, 400, '#66FF66');
 var player2 = new Player('player2', 100, 100, '#9944FF');
+player2.health = 99999;
 
 
 player1.enemy = player2;

@@ -17,6 +17,8 @@ function nextFrame() {
 	scene1.nextFrame();
 	player1.nextFrame(scene1);
 	player2.nextFrame(scene1);
+
+	iteration += 1;
 	
 
 }
@@ -37,6 +39,8 @@ document.addEventListener('keydown', function(event) {
 		player1.shoot();
 	}else if (x === 71) {
 		player1.placeWall(scene1);
+	}else if (x === 81) {
+		player1.changeGun();
 	}
 	//player2 movements:
 	else if (x === 37) {
@@ -52,6 +56,8 @@ document.addEventListener('keydown', function(event) {
 		player2.shoot();
 	}else if (x === 190) {
 		player2.placeWall(scene1);
+	}else if (x === 188) {
+		player2.changeGun();
 	}
 });
 
