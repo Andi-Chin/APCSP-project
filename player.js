@@ -24,7 +24,7 @@ class Player {
 		this.health = 5;
 		this.reloadSpeed = 30;
 		this.canShoot = true;
-		this.range = 300;
+		this.range = 300;//by default, pistol's range
 		this.bulletSpeed = 5;
 
 		this.numWalls = 5;
@@ -85,16 +85,16 @@ class Player {
 		if (this.gun === 'pistol') {
 			this.gun = 'shotgun';
 			this.reloadSpeed = 100;
-			this.range = 250;
+			this.range = 200;
 			this.bulletSpeed = 5;
 		}else if (this.gun === 'shotgun') {
 			this.gun = 'sniper';
 			this.reloadSpeed = 100;
 			this.range = 1000;
-			this.bulletSpeed = 3;
+			this.bulletSpeed = 1;
 		}else if (this.gun === 'sniper') {
 			this.gun = 'pistol';
-			this.reloadSpeed = 30;
+			this.reloadSpeed = 20;
 			this.range = 300;
 			this.bulletSpeed = 5;
 		}
@@ -110,9 +110,20 @@ class Player {
 			}else if (this.gun === 'shotgun') {
 				const rs = 30;
 				for (var load = 0; load < 4; load ++) {
-					this.bullets.push(new Bullet(this.x + rd(-rs, rs), 
-									  this.y + rd(-rs, rs), this.bullets.length, 
-									  this.range, this.bulletSpeed));
+					switch (this.direction) {
+						case 'left':
+						case 'right':
+							this.bullets.push(new Bullet(this.x + rd(-rs, rs), 
+											  this.y + rd(-rs, rs) + 13, this.bullets.length, 
+											  this.range, this.bulletSpeed));
+						break;
+						case 'up':
+						case 'down':
+							this.bullets.push(new Bullet(this.x + rd(-rs, rs) + 13, 
+											  this.y + rd(-rs, rs), this.bullets.length, 
+											  this.range, this.bulletSpeed));
+
+					}
 				}				
 			}else if (this.gun === 'sniper') {
 				const rs = 5;
@@ -147,7 +158,7 @@ class Player {
 	}
 
 	draw() {
-		ctx.font = "13px Arial";
+		ctx.font = "20px Arial";
 		ctx.fillStyle = "#000000";
 		drawCircle(this.x, this.y, this.radius, this.color);
 		ctx.fillText(this.health, this.x, this.y - 10);
@@ -160,10 +171,10 @@ class Player {
 			ex = 950;
 			why = 50;
 		}
-		ctx.fillText(this.name, ex, why - 15);
+		ctx.fillText(this.name, ex, why - 20);
 		ctx.fillText('hp:' + this.health, ex, why);
-		ctx.fillText('walls:' + this.numWalls, ex, why + 15);
-		ctx.fillText('gun:' + this.gun, ex, why + 30);
+		ctx.fillText('walls:' + this.numWalls, ex, why + 20);
+		ctx.fillText('gun:' + this.gun, ex, why + 40);
 
 
 		ctx.fillStyle = "#FF0000";
@@ -182,7 +193,7 @@ class Player {
 		if (this.health <= 0) {
 			clearInterval(timer);
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.fillText(this.name + ' lost!', 300, 300);
+			ctx.fillText(this.name + ' lost!', 500, 500);
 
 		}
 
@@ -232,9 +243,9 @@ class Player {
 
 }
 
-var player1 = new Player('player1', 400, 400, '#66FF66');
-var player2 = new Player('player2', 100, 100, '#9944FF');
-
+var player1 = new Player('player1', 50, 400, '#66FF66');
+var player2 = new Player('player2', 1200, 400, '#9944FF');
+player2.health = 99999;
 
 player1.enemy = player2;
 player2.enemy = player1;
