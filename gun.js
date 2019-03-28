@@ -34,7 +34,7 @@ Shotgun.shoot = function(player) {
 	}	
 }
 
-const Sniper = new Gun('sniper', 70, 1000, 1, 3);
+const Sniper = new Gun('sniper', 70, 1000, 1, 2);
 Sniper.shoot = function(player) {
 	const rs = 5;
 	for (var load = 0; load < this.bulletNum; load ++) {
