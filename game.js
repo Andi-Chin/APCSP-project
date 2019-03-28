@@ -33,8 +33,10 @@ document.addEventListener('keydown', function(event) {
 		player1.mvU = true
 	}else if (x === 83) {
 		player1.mvD = true;
-	}else if (x === 32) {
+	}else if (x === 70) {
 		player1.shoot();
+	}else if (x === 71) {
+		player1.placeWall(scene1);
 	}
 	//player2 movements:
 	else if (x === 37) {
@@ -48,6 +50,8 @@ document.addEventListener('keydown', function(event) {
 		player2.mvD = true;
 	}else if (x === 191) {
 		player2.shoot();
+	}else if (x === 190) {
+		player2.placeWall(scene1);
 	}
 });
 

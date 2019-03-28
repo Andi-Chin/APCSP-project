@@ -21,6 +21,9 @@ class Player {
 		this.enemy;
 		//so the game can actually end
 		this.health = 5;
+
+		this.reloadFactor = 0;
+		this.canShoot = true;
 	}
 
 
@@ -76,7 +79,24 @@ class Player {
 	}
 
 	shoot() {
-		this.bullets.push(new Bullet(this.x, this.y, this.bullets.length));
+		if (this.canShoot) {
+			this.bullets.push(new Bullet(this.x, this.y, this.bullets.length));
+			this.canShoot = false;
+		}
+	}
+
+	placeWall(scene) {
+		var newWall;
+		if (this.direction === 'left') {
+			newWall = new Wall(this.x - 50, this.y - 15);
+		}else if (this.direction === 'right') {
+			newWall = new Wall(this.x + 20, this.y - 15);
+		}else if (this.direction === 'up') {
+			newWall = new Wall(this.x - 20, this.y - 15 - 35);
+		}else if (this.direction === 'down') {
+			newWall = new Wall(this.x - 20, this.y - 15 + 35);
+		}
+		scene.objs.push(newWall);
 	}
 
 	draw() {
@@ -118,21 +138,25 @@ class Player {
 				this.bullets[i].draw();
 			}
 		}
-		
 		if (this.name === 'player1') {
 			this.enemy = player2;
 		}else if (this.name === 'player2') {
 			this.enemy = player1;
 		}
-
 		this.shootEnemy();
 
 		this.checkHealth();
 		this.bulletWallCollision(scene);
 
 
+		this.reloadFactor += 1;
 
+		if (this.reloadFactor % 10 === 0) {
+			this.canShoot = true;
+		}
 	}
+
+
 
 }
 

@@ -30,7 +30,12 @@ class Obj {
 	draw() {
 		makeBase(this);
 		ctx.font = "20px Arial";
+		ctx.fillStyle = "#DDDDDD";
 		ctx.fillText(this.health, this.x + 20, this.y + 20);
+		ctx.fillStyle = "#FF0000";
+
+		ctx.font = "50px Arial";
+
 
 	}
 
