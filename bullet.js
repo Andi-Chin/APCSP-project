@@ -24,36 +24,40 @@ class Bullet{
 			this.originalplayerDirection = player.direction;
 		}
 		this.distanceTravelled = (Date.now() - this.timeSinceStart) / this.moveMentSpeed;
-		if (this.originalplayerDirection === 'left') {
+		switch (this.originalplayerDirection) {
+			case 'left':
+				if (this.originalplayerX === undefined) {
+					this.originalplayerX = player.x;
+				}
+				if (this.distanceTravelled < this.maxDistance) {
+					this.x = this.originalplayerX - this.distanceTravelled;
+				}
+			break;
+			case 'right':
+				if (this.originalplayerX === undefined) {
+					this.originalplayerX = player.x;
+				}
+				if (this.distanceTravelled < this.maxDistance) {
+					this.x = this.originalplayerX + this.distanceTravelled;
+				}
+			break;
+			case 'up':
 
-			if (this.originalplayerX === undefined) {
-				this.originalplayerX = player.x;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.x = this.originalplayerX - this.distanceTravelled;
-			}
-		}else if (this.originalplayerDirection === 'right') {
-			if (this.originalplayerX === undefined) {
-				this.originalplayerX = player.x;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.x = this.originalplayerX + this.distanceTravelled;
-			}
-
-		}else if (this.originalplayerDirection === 'up') {
-			if (this.originalplayerY === undefined) {
-				this.originalplayerY = player.y;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.y = this.originalplayerY - this.distanceTravelled;
-			}
-		}else if (this.originalplayerDirection === 'down') {
-			if (this.originalplayerY === undefined) {
-				this.originalplayerY = player.y;
-			}
-			if (this.distanceTravelled < this.maxDistance) {
-				this.y = this.originalplayerY + this.distanceTravelled;
-			}
+				if (this.originalplayerY === undefined) {
+					this.originalplayerY = player.y;
+				}
+				if (this.distanceTravelled < this.maxDistance) {
+					this.y = this.originalplayerY - this.distanceTravelled;
+				}
+			break;
+			case 'down':
+				if (this.originalplayerY === undefined) {
+					this.originalplayerY = player.y;
+				}
+				if (this.distanceTravelled < this.maxDistance) {
+					this.y = this.originalplayerY + this.distanceTravelled;
+				}
+			break;
 		}
 
 		//if it has reachs the end

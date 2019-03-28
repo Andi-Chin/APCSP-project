@@ -10,7 +10,7 @@ class Player {
 		this.dBound = this.y + this.radius;
 		this.color = color;
 		this.direction = 'left'; //by default
-		this.movementScale = 4;
+		this.movementScale = 3;
 		this.bullets = [];
 		//movement flags to allow smooth movement
 		this.mvL = false;
@@ -82,13 +82,16 @@ class Player {
 		switch (this.gun) {
 			case Pistol:
 				this.gun = Shotgun;
-				break;
+			break;
 			case Shotgun:
 				this.gun = Sniper;
-				break;
+			break;
 			case Sniper:
+				this.gun = Rocket;
+			break;
+			case Rocket:
 				this.gun = Pistol;
-				break;
+			break;
 		}
 	}
 
@@ -205,7 +208,7 @@ class Player {
 
 var player1 = new Player('player1', 50, 400, '#66FF66');
 var player2 = new Player('player2', 1200, 400, '#9944FF');
-player2.health = 99999;
+
 
 player1.enemy = player2;
 player2.enemy = player1;

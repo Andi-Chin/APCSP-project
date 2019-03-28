@@ -20,13 +20,17 @@ function rd(lower, upper) {
 	return Math.floor(Math.random() * upper) + lower;
 }
 
+function renderImage(file, x, y, width, height)  {
+	base_image = new Image();
+	base_image.src = file;
+	ctx.imageSmoothingEnabled = false;
+	ctx.drawImage(base_image, x, y, width, height);
+}
 
 function makeBase(obj) {
-
-	base_image = new Image();
-	base_image.src = obj.file;
-	ctx.imageSmoothingEnabled = false;
-	ctx.drawImage(base_image, obj.x, obj.y, obj.width, obj.height);
+	renderImage(obj.file, obj.x, obj.y, obj.width, obj.height);
 }
+
+
 
 

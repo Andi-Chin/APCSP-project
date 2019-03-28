@@ -34,7 +34,7 @@ Shotgun.shoot = function(player) {
 	}	
 }
 
-const Sniper = new Gun('sniper', 130, 850, 1, 10);
+const Sniper = new Gun('sniper', 70, 1000, 1, 3);
 Sniper.shoot = function(player) {
 	const rs = 5;
 	for (var load = 0; load < this.bulletNum; load ++) {
@@ -42,4 +42,24 @@ Sniper.shoot = function(player) {
 						  player.y + rd(-rs, rs), player.bullets.length, 
 						  this.range, this.bulletSpeed));
 	}
+}
+
+const Rocket = new Gun('rocket', 350, 650, 20, 30);
+Rocket.shoot = function(player) {
+	const rs = 5;
+	for (var load = 0; load < this.bulletNum; load ++) {
+		switch (player.direction) {
+			case 'left':
+			case 'right':
+				player.bullets.push(new Bullet(player.x + rd(-rs, rs), 
+								  player.y + rd(-rs, rs) + 3, player.bullets.length, 
+								  this.range, this.bulletSpeed));
+			break;
+			case 'up':
+			case 'down':
+				player.bullets.push(new Bullet(player.x + rd(-rs, rs) + 3, 
+								  player.y + rd(-rs, rs), player.bullets.length, 
+								  this.range, this.bulletSpeed));
+		}
+	}	
 }

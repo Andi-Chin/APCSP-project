@@ -7,10 +7,7 @@ class Scene {
 
 	}
 	draw() {
-		var base_image = new Image();
-		base_image.src = 'bg.jpg';
-		ctx.imageSmoothingEnabled = false;
-		ctx.drawImage(base_image, 0, 0, 1250, 750);
+		renderImage('bg.jpg', 0, 0, canvas.width, canvas.height);
 
 		for (var i = 0; i < this.objs.length; i ++) {
 			this.objs[i].draw();
