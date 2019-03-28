@@ -20,12 +20,9 @@ class Player {
 		//so you won't be killed by ur own bullets LOL
 		this.enemy;
 		//so the game can actually end
-		this.gun = 'pistol';
+		this.gun = Pistol; //by default
 		this.health = 5;
-		this.reloadSpeed = 30;
 		this.canShoot = true;
-		this.range = 300;//by default, pistol's range
-		this.bulletSpeed = 5;
 
 		this.numWalls = 5;
 	}
@@ -82,59 +79,22 @@ class Player {
 		this.y = constraint(this.y, 0, canvas.height);
 	}
 	changeGun() {
-		if (this.gun === 'pistol') {
-			this.gun = 'shotgun';
-			this.reloadSpeed = 100;
-			this.range = 200;
-			this.bulletSpeed = 5;
-		}else if (this.gun === 'shotgun') {
-			this.gun = 'sniper';
-			this.reloadSpeed = 100;
-			this.range = 1000;
-			this.bulletSpeed = 1;
-		}else if (this.gun === 'sniper') {
-			this.gun = 'pistol';
-			this.reloadSpeed = 20;
-			this.range = 300;
-			this.bulletSpeed = 5;
+		switch (this.gun) {
+			case Pistol:
+				this.gun = Shotgun;
+				break;
+			case Shotgun:
+				this.gun = Sniper;
+				break;
+			case Sniper:
+				this.gun = Pistol;
+				break;
 		}
-		console.log(this.gun);
 	}
-
 
 	shoot() {
 		if (this.canShoot) {
-			if (this.gun === 'pistol') {
-				this.bullets.push(new Bullet(this.x, this.y, 
-								  this.bullets.length, this.range, this.bulletSpeed));
-			}else if (this.gun === 'shotgun') {
-				const rs = 30;
-				for (var load = 0; load < 4; load ++) {
-					switch (this.direction) {
-						case 'left':
-						case 'right':
-							this.bullets.push(new Bullet(this.x + rd(-rs, rs), 
-											  this.y + rd(-rs, rs) + 13, this.bullets.length, 
-											  this.range, this.bulletSpeed));
-						break;
-						case 'up':
-						case 'down':
-							this.bullets.push(new Bullet(this.x + rd(-rs, rs) + 13, 
-											  this.y + rd(-rs, rs), this.bullets.length, 
-											  this.range, this.bulletSpeed));
-
-					}
-				}				
-			}else if (this.gun === 'sniper') {
-				const rs = 5;
-				for (var load = 0; load < 10; load ++) {
-					this.bullets.push(new Bullet(this.x + rd(-rs, rs), 
-									  this.y + rd(-rs, rs), this.bullets.length, 
-									  this.range, this.bulletSpeed));
-				}
-
-			}
-
+			this.gun.shoot(this);
 			this.canShoot = false;
 		}
 	}
@@ -158,10 +118,11 @@ class Player {
 	}
 
 	draw() {
-		ctx.font = "20px Arial";
+		ctx.font = "10px Arial";
 		ctx.fillStyle = "#000000";
 		drawCircle(this.x, this.y, this.radius, this.color);
-		ctx.fillText(this.health, this.x, this.y - 10);
+		ctx.fillText(this.gun.name, this.x, this.y - 20);
+		ctx.fillText('hp: ' + this.health, this.x, this.y - 10);
 		var ex;
 		var why;
 		if (this.name === 'player1') {
@@ -171,12 +132,11 @@ class Player {
 			ex = 950;
 			why = 50;
 		}
+		ctx.font = "20px Arial";
 		ctx.fillText(this.name, ex, why - 20);
 		ctx.fillText('hp:' + this.health, ex, why);
 		ctx.fillText('walls:' + this.numWalls, ex, why + 20);
-		ctx.fillText('gun:' + this.gun, ex, why + 40);
-
-
+		ctx.fillText('gun:' + this.gun.name, ex, why + 40);
 		ctx.fillStyle = "#FF0000";
 		ctx.font = "50px Arial";
 
@@ -231,7 +191,7 @@ class Player {
 		this.bulletWallCollision(scene);
 
 
-		if (iteration % this.reloadSpeed === 0) {
+		if (iteration % this.gun.reloadSpeed === 0) {
 			this.canShoot = true;
 		}
 		if (iteration % 100 === 0 && this.numWalls < 10) {
