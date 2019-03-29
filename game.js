@@ -15,17 +15,20 @@ function nextFrame() {
 	
 
 	if (lost) {
-		
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		renderImage('bg2.jpg', 0, 0, canvas.width, canvas.height);
-		ctx.fillText(loser.name + ' has lost!', 500, 500);
+		renderImage('bg.jpg', 0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = loser.color;
+		ctx.fillText(loser.name + ' has lost!', canvas.width / 2, canvas.height / 2);
+		ctx.font = '30px Arial';
+		ctx.fillText('game restarting...' , canvas.width / 2, canvas.height / 2 + 50);
+		setTimeout(() => {
+			location.reload();
+		}, 1500);
 		clearInterval(timer);
 	}
-
 	iteration += 1;
-
 }
-renderImage('bg2.jpg', 0, 0, canvas.width, canvas.height);
+
 
 
 document.addEventListener('keydown', function(event) {

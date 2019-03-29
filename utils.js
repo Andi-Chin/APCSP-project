@@ -44,6 +44,25 @@ function makeBase(obj) {
 	renderImage(obj.file, obj.x, obj.y, obj.width, obj.height);
 }
 
+// function pause(ms) {
+// 	return new Promise(resolve => setTimeout(resolve => {}, ms));
+// }
+
+// async function sleep(ms) {
+// 	await pause(ms);
+// }
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function demo(ms) {
+  console.log('Taking a break...');
+  await sleep(ms);
+  console.log('Two seconds later');
+}
+
+
 
 
 
