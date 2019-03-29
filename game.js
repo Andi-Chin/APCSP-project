@@ -1,12 +1,3 @@
-// Canvas setup
-const canvas = document.getElementById("game");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const ctx = canvas.getContext("2d");
-ctx.fillStyle = "#FF0000";
-ctx.font = "50px Arial";
-ctx.textAlign = 'center';
-
 var timer = setInterval(nextFrame, 17);
 
 function nextFrame() {
@@ -17,11 +8,25 @@ function nextFrame() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	scene1.nextFrame();
 	player1.nextFrame(scene1);
+
+
 	player2.nextFrame(scene1);
+
+	
+
+	if (lost) {
+		
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		renderImage('bg2.jpg', 0, 0, canvas.width, canvas.height);
+		ctx.fillText(loser.name + ' has lost!', 500, 500);
+		clearInterval(timer);
+	}
 
 	iteration += 1;
 
 }
+renderImage('bg2.jpg', 0, 0, canvas.width, canvas.height);
+
 
 document.addEventListener('keydown', function(event) {
 

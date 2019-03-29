@@ -1,4 +1,17 @@
+// Canvas setup
+const canvas = document.getElementById("game");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FF0000";
+ctx.font = "50px Arial";
+ctx.textAlign = 'center';
+
+
+
 var iteration = 0;
+var lost = false;
+var loser;
 function drawCircle(x, y, r, color) {
 	ctx.beginPath();
 	ctx.arc(x, y, r, 0, Math.PI * 2);

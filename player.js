@@ -121,11 +121,11 @@ class Player {
 	}
 
 	draw() {
-		ctx.font = "10px Arial";
+		ctx.font = "15px Arial";
 		ctx.fillStyle = "#000000";
 		drawCircle(this.x, this.y, this.radius, this.color);
-		ctx.fillText(this.gun.name, this.x, this.y - 20);
-		ctx.fillText('hp: ' + this.health, this.x, this.y - 10);
+		ctx.fillText(this.gun.name, this.x, this.y - 26);
+		ctx.fillText('hp: ' + this.health, this.x, this.y - 13);
 		var ex;
 		var why;
 		if (this.name === 'player1') {
@@ -154,9 +154,8 @@ class Player {
 	checkHealth() {
 		//so the game doesn't go on forever LOL
 		if (this.health <= 0) {
-			clearInterval(timer);
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.fillText(this.name + ' lost!', 500, 500);
+			lost = true;
+			loser = this;
 
 		}
 
@@ -207,7 +206,7 @@ class Player {
 }
 
 var player1 = new Player('player1', 50, 400, '#66FF66');
-var player2 = new Player('player2', 1200, 400, '#9944FF');
+var player2 = new Player('player2', 1200, 400, '#FF7633');
 
 
 player1.enemy = player2;
