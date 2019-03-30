@@ -1,57 +1,41 @@
-class Obj {
-	constructor(x, y, width, height, file) {
-
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		
-
-		this.file = file;
-
-		this.lBound = this.x;
-		this.rBound = this.x + this.width;
-		this.uBound = this.y;
-		this.dBound = this.y + this.height;
-
-		this.centerX = this.lBound + Math.abs(this.rBound - this.lBound);
-		this.centerY = this.uBound + Math.abs(this.dBound - this.uBound);
+class Scene {
+	constructor(objs) {
+		this.objs = objs;
 	}
+	addObj(obj) {
+		this.objs.push(obj);
 
-	touched() {
-		console.log('touched: ');
-		console.log(this.constructor.name);
 	}
-
-	place(scene) {
-		scene.addObj(this);
-	}
-
 	draw() {
-		makeBase(this);
-	}
+		renderImage('./assets/bg.jpg', 0, 0, canvas.width, canvas.height);
 
+		for (var i = 0; i < this.objs.length; i ++) {
+			this.objs[i].draw();
+		}
+	}
+	spawnItems() {
+		if (iteration % 1000 === 0) {
+			this.objs.push(new Item('HealthPack', rd(0, canvas.width), rd(0, canvas.height), './assets/health.jpg'));
+		}
+	}
+	rmItems() {
+		for (var i = 0; i < this.objs.length; i ++) {
+			const obj = this.objs[i];
+			if (obj.constructor.name === 'Item' && (iteration - obj.birthTime > 500)) {
+				this.objs.splice(i, 1);
+			}
+		}
+	}
 	nextFrame() {
+		for (var i = 0; i < this.objs.length; i ++) {
+			var obj = this.objs[i];
+			if (obj.health <= 0) {
+				this.objs.splice(this.objs.indexOf(obj), 1);
+			}
+		}
+		this.spawnItems();
 		this.draw();
 	}
 }
 
-class Wall extends Obj {
-	constructor(x, y) {
-		super(x, y, 30, 30, './assets/brick.png');
-		this.health = 3;
-	}
-	draw() {
-		makeBase(this);
-		ctx.font = "20px Arial";
-		ctx.fillStyle = "#DDDDDD";
-		ctx.fillText(this.health, this.x + 20, this.y + 20);
-		ctx.fillStyle = "#FF0000";
-
-		ctx.font = "50px Arial";
-	}
-}
-
-
-
-
+var scene1 = new Scene([]);
