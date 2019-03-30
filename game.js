@@ -67,6 +67,19 @@ document.addEventListener('keydown', function(event) {
 	}else if (x === 188) {
 		player2.changeGun();
 	}
+
+
+	// else if (x === 80) {
+	// 	var result = '';
+	// 	for (var i = 0; i < wallsToAdd.length; i ++) {
+	// 		result += wallsToAdd[i];
+	// 	}	
+	// 	console.log(result);
+	// }
+	// else if (x === 8) {
+	// 	scene1.objs.pop();
+	// 	wallsToAdd.pop();
+	// }
 });
 
 document.addEventListener('keyup', function(event) {
@@ -100,10 +113,11 @@ document.addEventListener('keyup', function(event) {
 
 
 
-
+// var wallsToAdd = [];
 
 function addWall(event) {
 	scene1.addObj(new Wall(event.clientX - 20, event.clientY - 20));
+	// wallsToAdd.push(`scene1.addObj(new Wall(${event.clientX - 20}, ${event.clientY - 20}));\n`);
 }
 document.addEventListener("click", addWall);
 
