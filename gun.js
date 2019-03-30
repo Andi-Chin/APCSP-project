@@ -10,7 +10,7 @@ class Gun {
 	}
 }
 
-const Pistol = new Gun('pistol', 20, 300, 5, 1, 13, 8);
+const Pistol = new Gun('pistol', 20, 400, 5, 1, 13, 8);
 Pistol.shoot = function(player)  {
 	player.bullets.push(new Bullet(player.x, player.y, 
 								  player.bullets.length, this.range, this.bulletSpeed));
@@ -36,7 +36,7 @@ Shotgun.shoot = function(player) {
 	}	
 }
 
-const Sniper = new Gun('sniper', 70, 1000, 1, 2, 23, 7);
+const Sniper = new Gun('sniper', 70, canvas.width - 300, 1, 2, 23, 7);
 Sniper.shoot = function(player) {
 	const rs = 5;
 	for (var load = 0; load < this.bulletNum; load ++) {

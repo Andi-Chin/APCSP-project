@@ -232,7 +232,7 @@ class Player {
 			this.numWalls += 1
 		}
 
-		if (iteration % 1000 === 0 && this.health < 5) {
+		if (iteration % 1300 === 0 && this.health < 5) {
 			this.health += 1;
 		}
 	}
