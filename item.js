@@ -9,8 +9,8 @@ class Item extends Obj {
         if (this.name === 'HealthPack') {
             if (player.health < 5) {
                 player.health += 1;
-                scene.objs.splice(scene.objs.indexOf(this), 1);
             }
+            scene.objs.splice(scene.objs.indexOf(this), 1);
         }
     }
 
