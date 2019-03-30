@@ -14,14 +14,14 @@ class Scene {
 		}
 	}
 	spawnItems() {
-		if (iteration % 1000 === 0) {
+		if (iteration % 500 === 0) {
 			this.objs.push(new Item('HealthPack', rd(0, canvas.width), rd(0, canvas.height), './assets/health.jpg'));
 		}
 	}
 	rmItems() {
 		for (var i = 0; i < this.objs.length; i ++) {
 			const obj = this.objs[i];
-			if (obj.constructor.name === 'Item' && (iteration - obj.birthTime > 500)) {
+			if (obj.constructor.name === 'Item' && (iteration - obj.birthTime > 1000)) {
 				this.objs.splice(i, 1);
 			}
 		}
@@ -34,6 +34,7 @@ class Scene {
 			}
 		}
 		this.spawnItems();
+		this.rmItems();
 		this.draw();
 	}
 }
