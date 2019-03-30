@@ -138,7 +138,7 @@ class Player {
 			ex = 50;
 			why = 50;
 		}else if (this.name === 'player2') {
-			ex = 950;
+			ex = canvas.width - 200;
 			why = 50;
 		}
 		ctx.font = "20px Arial";
@@ -241,8 +241,10 @@ class Player {
 
 }
 
-var player1 = new Player('player1', 50, 400, '#66FF66');
-var player2 = new Player('player2', 1200, 400, '#FF7633');
+var player1 = new Player('player1', 50, canvas.height / 2, '#66FF66');
+var player2 = new Player('player2', canvas.width - 50, canvas.height / 2, '#FF7633');
+
+player1.direction = 'right';
 
 
 player1.enemy = player2;
