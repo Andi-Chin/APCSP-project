@@ -16,7 +16,7 @@ Pistol.shoot = function(player)  {
 								  player.bullets.length, this.range, this.bulletSpeed));
 }
 
-const Shotgun = new Gun('shotgun', 100, 200, 5, 4, 17, 11);
+const Shotgun = new Gun('shotgun', 100, 250, 5, 4, 17, 11);
 Shotgun.shoot = function(player) {
 	const rs = 30;
 	for (var load = 0; load < this.bulletNum; load ++) {
