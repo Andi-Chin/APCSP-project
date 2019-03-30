@@ -18,6 +18,14 @@ class Scene {
 			this.objs.push(new Item('HealthPack', rd(0, canvas.width), rd(0, canvas.height), './assets/health.jpg'));
 		}
 	}
+	rmItems() {
+		for (var i = 0; i < this.objs.length; i ++) {
+			const obj = this.objs[i];
+			if (obj.constructor.name === 'Item' && (iteration - obj.birthTime > 500)) {
+				this.objs.splice(i, 1);
+			}
+		}
+	}
 	nextFrame() {
 		for (var i = 0; i < this.objs.length; i ++) {
 			var obj = this.objs[i];
