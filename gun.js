@@ -1,20 +1,22 @@
 class Gun {
-	constructor(name, reloadSpeed, range, bulletSpeed, bulletNum) {
+	constructor(name, reloadSpeed, range, bulletSpeed, bulletNum, length, width) {
 		this.name = name;
 		this.reloadSpeed = reloadSpeed;
 		this.range = range;
 		this.bulletSpeed = bulletSpeed;
 		this.bulletNum = bulletNum;
+		this.length = length;
+		this.width = width;
 	}
 }
 
-const Pistol = new Gun('pistol', 20, 300, 5, 1);
+const Pistol = new Gun('pistol', 20, 300, 5, 1, 13, 8);
 Pistol.shoot = function(player)  {
 	player.bullets.push(new Bullet(player.x, player.y, 
 								  player.bullets.length, this.range, this.bulletSpeed));
 }
 
-const Shotgun = new Gun('shotgun', 100, 200, 5, 4);
+const Shotgun = new Gun('shotgun', 100, 200, 5, 4, 17, 11);
 Shotgun.shoot = function(player) {
 	const rs = 30;
 	for (var load = 0; load < this.bulletNum; load ++) {
@@ -34,7 +36,7 @@ Shotgun.shoot = function(player) {
 	}	
 }
 
-const Sniper = new Gun('sniper', 70, 1000, 1, 2);
+const Sniper = new Gun('sniper', 70, 1000, 1, 2, 23, 7);
 Sniper.shoot = function(player) {
 	const rs = 5;
 	for (var load = 0; load < this.bulletNum; load ++) {
@@ -44,7 +46,7 @@ Sniper.shoot = function(player) {
 	}
 }
 
-const Rocket = new Gun('rocket', 350, 650, 20, 30);
+const Rocket = new Gun('rocket', 350, 650, 20, 30, 15, 15);
 Rocket.shoot = function(player) {
 	const rs = 5;
 	for (var load = 0; load < this.bulletNum; load ++) {

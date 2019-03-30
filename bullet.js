@@ -5,7 +5,7 @@ class Bullet{
 		this.y = y;
 		this.width = 4;
 		this.height = 4;
-		this.color = '#DDDDDD';
+		this.color = '#FFFFFF';
 		this.lBound = this.x;
 		this.rBound = this.x + this.width;
 		this.uBound = this.y;

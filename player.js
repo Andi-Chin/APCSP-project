@@ -140,8 +140,34 @@ class Player {
 		ctx.fillText('hp:' + this.health, ex, why);
 		ctx.fillText('walls:' + this.numWalls, ex, why + 20);
 		ctx.fillText('gun:' + this.gun.name, ex, why + 40);
+		
+		//draw guns, it's alot of code, but worth it...
+		//also so players could tell which directions they are facing in
+		var ex = this.x;
+		var why = this.y;
+		var ex1 = this.x;
+		var why1 = this.y;
+		const length = this.gun.length;
+		if (this.direction === 'left') {
+			ex = this.x - 10;
+			ex1 = ex - length;
+		}else if (this.direction === 'right') {
+			ex = this.x + 10;
+			ex1 = ex + length;
+		}else if (this.direction === 'up') {
+			why = this.y - 10;
+			why1 = why - length;
+		}else if (this.direction === 'down') {
+			why = this.y + 10;
+			why1 = why + length;
+		}
+		ctx.strokeStyle = "#C0C0C0";
+		drawLine(ex, why, ex1, why1, this.gun.width);
+
+		//reset it to normal
 		ctx.fillStyle = "#FF0000";
 		ctx.font = "50px Arial";
+
 
 	}
 
@@ -198,6 +224,10 @@ class Player {
 		}
 		if (iteration % 100 === 0 && this.numWalls < 10) {
 			this.numWalls += 1
+		}
+
+		if (iteration % 1000 === 0 && this.health < 5) {
+			this.health += 1;
 		}
 	}
 

@@ -19,6 +19,14 @@ function drawCircle(x, y, r, color) {
 	ctx.fill();
 }
 
+function drawLine(x, y, x1, y1, width) {
+	ctx.lineWidth = width;
+	ctx.beginPath();
+	ctx.moveTo(x, y);
+	ctx.lineTo(x1, y1);
+	ctx.stroke();
+}
+
 function constraint(input, lower, upper) {
 	var result = input;
 	if (input < lower) {
@@ -44,23 +52,6 @@ function makeBase(obj) {
 	renderImage(obj.file, obj.x, obj.y, obj.width, obj.height);
 }
 
-// function pause(ms) {
-// 	return new Promise(resolve => setTimeout(resolve => {}, ms));
-// }
-
-// async function sleep(ms) {
-// 	await pause(ms);
-// }
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function demo(ms) {
-  console.log('Taking a break...');
-  await sleep(ms);
-  console.log('Two seconds later');
-}
 
 
 
