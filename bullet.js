@@ -82,7 +82,7 @@ class Bullet{
 			const wall = scene.objs[i];
 			var xInRange = wall.lBound < this.x && this.x < wall.rBound;
 			var yInRange = wall.uBound < this.y && this.y < wall.dBound;
-			if (xInRange && yInRange) {
+			if (xInRange && yInRange && scene.objs[i].constructor.name === 'Wall') {
 				scene.objs[i].health -= 1;
 				player.bullets.splice(player.bullets.indexOf(this), 1);
 			}

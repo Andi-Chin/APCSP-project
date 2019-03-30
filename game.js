@@ -16,7 +16,7 @@ function nextFrame() {
 
 	if (lost) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		renderImage('bg.jpg', 0, 0, canvas.width, canvas.height);
+		renderImage('./assets/bg.jpg', 0, 0, canvas.width, canvas.height);
 		ctx.fillStyle = loser.color;
 		ctx.fillText(loser.name + ' has lost!', canvas.width / 2, canvas.height / 2);
 		ctx.font = '30px Arial';

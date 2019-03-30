@@ -34,39 +34,45 @@ class Player {
 		return xRange && yRange;
 	}
 
-	objCollision(scene, prevX, prevY) {
+	objCollision(scene, prevX, prevY, objName) {
 		//makes sure the player doesn't go into an object
 		for (var i = 0; i < scene.objs.length; i ++) {
+			//only wall collision, doesn't include other objs
 			if (this.checkTouch(scene.objs[i])) {
-				this.x = prevX;
-				this.y = prevY;
+				if (scene.objs[i].constructor.name === 'Wall') {
+					this.x = prevX;
+					this.y = prevY;
+				}else if (scene.objs[i].constructor.name === 'Item') {
+					scene.objs[i].touched(scene, this);
+				}
 			}
 		}
 	}
 
 	move(scene) {
+		const objName = 'Wall';
 		if (this.mvL) {
 			var prevX = this.x;
 			this.x -= this.movementScale;
-			this.objCollision(scene, prevX, this.y);
+			this.objCollision(scene, prevX, this.y, objName);
 			this.direction = 'left';
 		}
 		if (this.mvR) {
 			var prevX = this.x;
 			this.x += this.movementScale;
-			this.objCollision(scene, prevX, this.y);
+			this.objCollision(scene, prevX, this.y, objName);
 			this.direction = 'right';
 		}
 		if (this.mvU) {
 			var prevY = this.y;
 			this.y -= this.movementScale;
-			this.objCollision(scene, this.x, prevY);
+			this.objCollision(scene, this.x, prevY, objName);
 			this.direction = 'up';
 		}
 		if (this.mvD) {
 			var prevY = this.y;
 			this.y += this.movementScale;
-			this.objCollision(scene, this.x, prevY);
+			this.objCollision(scene, this.x, prevY, objName);
 			this.direction = 'down'
 		}
 		//update left and right bounds everytime it moves
