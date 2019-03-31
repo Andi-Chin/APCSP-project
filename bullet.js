@@ -1,8 +1,9 @@
-class Bullet{
-	constructor(x, y, ind, range, speed) {
-
+class Bullet {
+	constructor(x, y, player, range, speed) {
 		this.x = x;
 		this.y = y;
+		this.initX = this.x;
+		this.initY = this.y;
 		this.width = 4;
 		this.height = 4;
 		this.color = '#FFFFFF';
@@ -10,58 +11,28 @@ class Bullet{
 		this.rBound = this.x + this.width;
 		this.uBound = this.y;
 		this.dBound = this.y + this.height;
-
-		this.timeSinceStart = Date.now();
+		this.direction = player.direction;
 		this.distanceTravelled = 0;
 		this.maxDistance = range;
-		this.moveMentSpeed = speed; //smaller num = faster
+		this.moveMentSpeed = speed; //bigger num = faster
 		//index of this bullet in the player's list
-		this.ind = ind;
-
+		this.ind = player.bullets.length;
+		this.vec;
+		if (this.direction === 'left') {
+			this.vec = new Vector(-this.moveMentSpeed, 0);
+		} else if (this.direction === 'right') {
+			this.vec = new Vector(this.moveMentSpeed, 0);
+		} else if (this.direction === 'up') {
+			this.vec = new Vector(0, -this.moveMentSpeed);
+		} else if (this.direction === 'down') {
+			this.vec = new Vector(0, this.moveMentSpeed);
+		}
 	}
 	setPos(player) {
-		if (this.originalplayerDirection === undefined) {
-			this.originalplayerDirection = player.direction;
-		}
-		this.distanceTravelled = (Date.now() - this.timeSinceStart) / this.moveMentSpeed;
-		switch (this.originalplayerDirection) {
-			case 'left':
-				if (this.originalplayerX === undefined) {
-					this.originalplayerX = player.x;
-				}
-				if (this.distanceTravelled < this.maxDistance) {
-					this.x = this.originalplayerX - this.distanceTravelled;
-				}
-			break;
-			case 'right':
-				if (this.originalplayerX === undefined) {
-					this.originalplayerX = player.x;
-				}
-				if (this.distanceTravelled < this.maxDistance) {
-					this.x = this.originalplayerX + this.distanceTravelled;
-				}
-			break;
-			case 'up':
-
-				if (this.originalplayerY === undefined) {
-					this.originalplayerY = player.y;
-				}
-				if (this.distanceTravelled < this.maxDistance) {
-					this.y = this.originalplayerY - this.distanceTravelled;
-				}
-			break;
-			case 'down':
-				if (this.originalplayerY === undefined) {
-					this.originalplayerY = player.y;
-				}
-				if (this.distanceTravelled < this.maxDistance) {
-					this.y = this.originalplayerY + this.distanceTravelled;
-				}
-			break;
-		}
-
+		this.x += this.vec.xV;
+		this.y += this.vec.yV;
 		//if it has reachs the end
-		var diff = this.maxDistance - this.distanceTravelled;
+		const diff = this.maxDistance - distance(this.x, this.y, this.initX, this.initY);
 		if (diff <= 5) {
 			player.bullets.splice(player.bullets.indexOf(this), 1);
 		}
@@ -70,15 +41,13 @@ class Bullet{
 	playerCollision(player) {
 		var xInRange = player.enemy.lBound < this.x && this.x < player.enemy.rBound;
 		var yInRange = player.enemy.uBound < this.y && this.y < player.enemy.dBound;
-
 		if (xInRange && yInRange) {
 			player.enemy.health -= 1;
 			player.bullets.splice(player.bullets.indexOf(this), 1);
 		}
 	}
-
 	wallCollision(scene, player) {
-		for (var i = 0; i < scene.objs.length; i ++) {
+		for (var i = 0; i < scene.objs.length; i++) {
 			const wall = scene.objs[i];
 			var xInRange = wall.lBound < this.x && this.x < wall.rBound;
 			var yInRange = wall.uBound < this.y && this.y < wall.dBound;
@@ -89,14 +58,10 @@ class Bullet{
 
 		}
 	}
-
-
-	draw()  {
+	draw() {
 		drawCircle(this.x, this.y, this.width, this.color);
 	}
-
 	nextFrame() {
 		this.draw();
 	}
-
 }

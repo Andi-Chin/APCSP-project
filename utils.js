@@ -19,6 +19,12 @@ function drawCircle(x, y, r, color) {
 	ctx.fill();
 }
 
+function distance(x, y, x1, y1) {
+	const xDist = Math.abs(x1 - x);
+	const yDist = Math.abs(y1 - y);
+	return Math.sqrt(xDist * xDist + yDist * yDist);
+}
+
 function drawLine(x, y, x1, y1, width) {
 	ctx.lineWidth = width;
 	ctx.beginPath();
@@ -31,17 +37,17 @@ function constraint(input, lower, upper) {
 	var result = input;
 	if (input < lower) {
 		result = lower;
-	}else if (input > upper) {
+	} else if (input > upper) {
 		result = upper;
 	}
 	return result;
 }
 
-function rd(lower, upper) {
-	return Math.floor(Math.random() * upper) + lower;
+function rd(min, max) {
+	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function renderImage(file, x, y, width, height)  {
+function renderImage(file, x, y, width, height) {
 	base_image = new Image();
 	base_image.src = file;
 	ctx.imageSmoothingEnabled = false;

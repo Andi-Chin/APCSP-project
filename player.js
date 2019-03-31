@@ -36,13 +36,13 @@ class Player {
 
 	objCollision(scene, prevX, prevY, objName) {
 		//makes sure the player doesn't go into an object
-		for (var i = 0; i < scene.objs.length; i ++) {
+		for (var i = 0; i < scene.objs.length; i++) {
 			//only wall collision, doesn't include other objs
 			if (this.checkTouch(scene.objs[i])) {
 				if (scene.objs[i].constructor.name === 'Wall') {
 					this.x = prevX;
 					this.y = prevY;
-				}else if (scene.objs[i].constructor.name === 'Item') {
+				} else if (scene.objs[i].constructor.name === 'Item') {
 					scene.objs[i].touched(scene, this);
 				}
 			}
@@ -88,16 +88,16 @@ class Player {
 		switch (this.gun) {
 			case Pistol:
 				this.gun = Shotgun;
-			break;
+				break;
 			case Shotgun:
 				this.gun = Sniper;
-			break;
+				break;
 			case Sniper:
 				this.gun = Rocket;
-			break;
+				break;
 			case Rocket:
 				this.gun = Pistol;
-			break;
+				break;
 		}
 	}
 
@@ -112,18 +112,18 @@ class Player {
 		var newWall;
 		if (this.direction === 'left') {
 			newWall = new Wall(this.x - 50, this.y - 15);
-		}else if (this.direction === 'right') {
+		} else if (this.direction === 'right') {
 			newWall = new Wall(this.x + 20, this.y - 15);
-		}else if (this.direction === 'up') {
+		} else if (this.direction === 'up') {
 			newWall = new Wall(this.x - 20, this.y - 15 - 35);
-		}else if (this.direction === 'down') {
+		} else if (this.direction === 'down') {
 			newWall = new Wall(this.x - 20, this.y - 15 + 35);
 		}
 		if (this.numWalls > 0) {
 			scene.objs.push(newWall);
 			this.numWalls -= 1;
 		}
-		
+
 	}
 
 	draw() {
@@ -137,7 +137,7 @@ class Player {
 		if (this.name === 'player1') {
 			ex = 50;
 			why = 50;
-		}else if (this.name === 'player2') {
+		} else if (this.name === 'player2') {
 			ex = canvas.width - 200;
 			why = 50;
 		}
@@ -146,7 +146,7 @@ class Player {
 		ctx.fillText('hp:' + this.health, ex, why);
 		ctx.fillText('walls:' + this.numWalls, ex, why + 20);
 		ctx.fillText('gun:' + this.gun.name, ex, why + 40);
-		
+
 		//draw guns, it's alot of code, but worth it...
 		//also so players could tell which directions they are facing in
 		var ex = this.x;
@@ -157,13 +157,13 @@ class Player {
 		if (this.direction === 'left') {
 			ex = this.x - 10;
 			ex1 = ex - length;
-		}else if (this.direction === 'right') {
+		} else if (this.direction === 'right') {
 			ex = this.x + 10;
 			ex1 = ex + length;
-		}else if (this.direction === 'up') {
+		} else if (this.direction === 'up') {
 			why = this.y - 10;
 			why1 = why - length;
-		}else if (this.direction === 'down') {
+		} else if (this.direction === 'down') {
 			why = this.y + 10;
 			why1 = why + length;
 		}
@@ -178,7 +178,7 @@ class Player {
 	}
 
 	shootEnemy() {
-		for (var i = 0; i < this.bullets.length; i ++) {
+		for (var i = 0; i < this.bullets.length; i++) {
 			this.bullets[i].playerCollision(this, this.enemy);
 		}
 	}
@@ -193,7 +193,7 @@ class Player {
 
 	}
 	bulletWallCollision(scene) {
-		for (var i = 0; i < this.bullets.length; i ++) {
+		for (var i = 0; i < this.bullets.length; i++) {
 			this.bullets[i].wallCollision(scene, this);
 		}
 	}
@@ -202,21 +202,21 @@ class Player {
 		this.move(scene);
 		this.draw();
 
-		for (var i = 0; i < this.bullets.length; i ++) {
+		for (var i = 0; i < this.bullets.length; i++) {
 			this.bullets[i].setPos(this);
 
 			//could have gotten popped
 			if (this.bullets.length !== 0) {
 				try {
 					this.bullets[i].draw();
-				}catch (err) {
+				} catch (err) {
 					console.log(this.bullets);
 				}
 			}
 		}
 		if (this.name === 'player1') {
 			this.enemy = player2;
-		}else if (this.name === 'player2') {
+		} else if (this.name === 'player2') {
 			this.enemy = player1;
 		}
 		this.shootEnemy();
