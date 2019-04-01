@@ -27,12 +27,12 @@ Shotgun.shoot = function (player) {
 			case 'left':
 			case 'right':
 				//so that the shots spread out
-				bullet.vec.yV += (load - 1.5) / 4;
+				bullet.vec.yV += (load - 1.5) / 2;
 				break;
 			case 'up':
 			case 'down':
 				// so the shots spread out
-				bullet.vec.xV += (load - 1.5) / 4;
+				bullet.vec.xV += (load - 1.5) / 2;
 				break;
 		}
 		player.bullets.push(bullet);
