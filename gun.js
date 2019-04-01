@@ -39,8 +39,8 @@ Shotgun.shoot = function (player) {
 	}
 }
 const Sniper = new Gun('sniper', 70, canvas.width - 300, 20, 2, 23, 7);
+var rs = 0;
 Sniper.shoot = function (player) {
-	const rs = 2;
 	for (var load = 0; load < this.bulletNum; load++) {
 		player.bullets.push(new Bullet(player.x + rd(-rs, rs),
 			player.y + rd(-rs, rs), player,
@@ -49,4 +49,5 @@ Sniper.shoot = function (player) {
 }
 
 const Rocket = new Gun('rocket', 350, 650, 0.7, 14, 15, 15);
+rs = 2;
 Rocket.shoot = Sniper.shoot;
