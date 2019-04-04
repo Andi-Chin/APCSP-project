@@ -1,10 +1,38 @@
-var http = require('http');
-var fs = require('fs');
+//load modules
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
+var express = require('express');
 
-http.createServer(function (req, res) {
-	fs.readFile('index.html', function(err, data) {
-		res.writeHead(200, {'Content-Type': 'text/html'});
-		res.write(data);
-		res.end();
+//Starts express (this thing that makes XHTTP requests a fuckton easier)
+var app = express();
+app.use(express.static('public'))
+//GET html index file
+var fileArr = [
+	'index.html',
+	'utils.js',
+	'vector.js',
+	'obj.js',
+	'item.js',
+	'bullet.js',
+	'gun.js',
+	'player.js',
+	'scene.js',
+	'game.js',
+	'assets/bg.jpg',
+	'assets/brick.png',
+	'assets/health.jpg'
+
+];
+
+for (let i = 0; i < fileArr.length; i++) {
+	app.get('/' + fileArr[i], (req, res) => {
+		res.sendFile(__dirname + req.url);
+		console.log("sent file: " + req.url);
 	});
-}).listen(8080);
+}
+
+app.listen(1024, () => {
+	console.log('App successfully started.');
+})
