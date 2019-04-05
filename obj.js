@@ -14,8 +14,8 @@ class Obj {
 		this.uBound = this.y;
 		this.dBound = this.y + this.height;
 
-		this.centerX = this.lBound + Math.abs(this.rBound - this.lBound);
-		this.centerY = this.uBound + Math.abs(this.dBound - this.uBound);
+		this.centerX = this.lBound + this.width / 2;
+		this.centerY = this.uBound + this.height / 2;
 	}
 
 	touched() {
