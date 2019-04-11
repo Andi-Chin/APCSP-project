@@ -5,7 +5,7 @@ const path = require('path');
 const url = require('url');
 var express = require('express');
 
-//Starts express (this thing that makes XHTTP requests a fuckton easier)
+//Starts express 
 var app = express();
 app.use(express.static('public'))
 //GET html index file
